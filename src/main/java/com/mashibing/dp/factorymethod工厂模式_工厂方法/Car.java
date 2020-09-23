@@ -1,4 +1,4 @@
-package com.mashibing.dp.factorymethod;
+package com.mashibing.dp.factorymethod工厂模式;
 
 public class Car implements  Moveable {
 
