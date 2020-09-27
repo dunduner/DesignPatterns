@@ -1,4 +1,4 @@
-package com.mashibing.dp.factorymethod工厂模式;
+package com.mashibing.dp.factorymethod工厂模式_工厂方法;
 
 /**
  * 简单工厂的可扩展性不好

@@ -29,6 +29,7 @@ class LinkedList_ {
         Node n = new Node(o);
         n.next = null;
 
+        //头为空,那头就是这个,尾部也是这个
         if(head == null) {
             head = n;
             tail = n;

@@ -1,4 +1,4 @@
-package com.mashibing.dp.strategy;
+package com.mashibing.dp.strategy_策略模式;
 
 public class CatHeightComparator implements Comparator<Cat> {
     @Override
@@ -6,5 +6,6 @@ public class CatHeightComparator implements Comparator<Cat> {
         if(o1.height > o2.height) return -1;
         else if (o1.height < o2.height) return 1;
         else return 0;
+        //strategy
     }
 }

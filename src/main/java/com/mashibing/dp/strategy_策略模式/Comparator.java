@@ -1,6 +1,5 @@
-package com.mashibing.dp.strategy;
+package com.mashibing.dp.strategy_策略模式;
 
-@FunctionalInterface
 public interface Comparator<T> {
     int compare(T o1, T o2);
 

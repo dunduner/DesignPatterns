@@ -1,4 +1,4 @@
-package com.mashibing.dp.strategy;
+package com.mashibing.dp.strategy_策略模式;
 
 public class Cat implements Comparable<Cat> {
     int weight, height;
@@ -9,10 +9,13 @@ public class Cat implements Comparable<Cat> {
     }
 
     public int compareTo(Cat c) {
-
-        if(this.weight < c.weight) return -1;
-        else if(this.weight > c.weight) return 1;
-        else return 0;
+        if (this.weight < c.weight) {
+            return -1;
+        } else if (this.weight > c.weight) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     @Override

@@ -1,6 +1,6 @@
-package com.mashibing.dp.cor责任链模式.打折.priceFilterImpl;
+package com.mashibing.dp.cor责任链模式.售楼部打折.priceFilterImpl;
 
-import com.mashibing.dp.cor责任链模式.打折.PriceFilter;
+import com.mashibing.dp.cor责任链模式.售楼部打折.PriceFilter;
 
 /**
  *

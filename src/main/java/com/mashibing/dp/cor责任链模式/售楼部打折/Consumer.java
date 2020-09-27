@@ -1,4 +1,4 @@
-package com.mashibing.dp.cor责任链模式.打折;
+package com.mashibing.dp.cor责任链模式.售楼部打折;
 
 /**
  * @author zhangning

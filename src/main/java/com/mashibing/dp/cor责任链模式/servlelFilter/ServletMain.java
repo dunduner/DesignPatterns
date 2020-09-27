@@ -1,4 +1,5 @@
-package com.mashibing.dp.cor责任链模式;
+package com.mashibing.dp.cor责任链模式.servlelFilter;
+
 
 import java.util.ArrayList;
 
@@ -6,111 +7,104 @@ import java.util.ArrayList;
  * @author zhangning
  * @date 2020/9/22
  */
-public class V01 {
+public class ServletMain {
     public static void main(String[] args) {
-        Msg msgObj = new Msg("大家好,:)，<script> 欢迎大家访问 mashibing.com ，大家伙儿基本996哦！</script>");
+        Request request = new Request();
+        request.setReqStr("大家好，:)，<script>，欢迎访问 mashibing.com ，大家都是996");
 
-        FilterChain filterChain1 = new FilterChain();
+        Response response = new Response();
+        response.setResStr("响应字符串：");
 
-        filterChain1.add(new FaceFilter()).add(new HtmlFilter());
-
-
-        FilterChain filterChain2 = new FilterChain();
-        filterChain2.add(new UrLFilter()).add(new J996Filter());
-
-
-        filterChain1.add(filterChain2);
-
-        filterChain1.doFilter(msgObj);
+        FilterChain filterChain = new FilterChain();
+        filterChain.add(new HTMLFilter()).add(new URLFilter());
+        filterChain.doFilter(request,response);
 
 
-        System.out.println(msgObj.getMsg());
+        System.out.println(request.getReqStr());
+        System.out.println(response.getResStr());
     }
 }
 
-class Msg {
-    String msg;
 
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
 
-    public String getMsg() {
-        return this.msg;
-    }
-
-    public Msg(String msg) {
-        this.msg = msg;
-    }
+interface Filter{
+    void doFilter(Request request,Response response,FilterChain filterChain);
 }
 
-interface Filter {
-    boolean doFilter(Msg msg);
-}
 
-class FilterChain implements Filter {
-
+class FilterChain {
     ArrayList<Filter> filters = new ArrayList<>();
+    int index = 0;
 
-    public FilterChain add(Filter filter) {
+    public FilterChain add(Filter filter){
         filters.add(filter);
         return this;
     }
 
-    @Override
-    public boolean doFilter(Msg msg) {
-        for (Filter f : filters) {
-            //有一个过滤器返回false，就不往后走了
-            if (!f.doFilter(msg)) {
-                return false;
-            }
+    public void doFilter(Request request, Response response) {
+        if(index==filters.size()){
+            return;
         }
-        return true;
+        Filter filter = filters.get(index);
+        index++;
+        filter.doFilter(request,response,this);
+
     }
 }
 
-//下面是4个过滤
-class HtmlFilter implements Filter {
+
+class HTMLFilter implements Filter {
     @Override
-    public boolean doFilter(Msg msg) {
-        String r = msg.getMsg();
-        r = r.replace("<", "[");
-        r = r.replace(">", "]");
-        msg.setMsg(r);
-        return true;
+    public void doFilter(Request request, Response response, FilterChain filterChain) {
+        String s= request.getReqStr().replaceAll("<", "[").replaceAll(">", "]") + "-----HTMLFilter()";
+        request.setReqStr(s);
+        filterChain.doFilter(request, response);
+
+        String resStr = response.getResStr();
+        resStr += "--HTMLFilter()";
+        response.setResStr(resStr);
+
     }
 }
 
-class UrLFilter implements Filter {
+class URLFilter implements Filter {
     @Override
-    public boolean doFilter(Msg msg) {
-        String r = msg.getMsg();
-        r = r.replace("mashibing.com", "https://www.mashibing.com");
-        msg.setMsg(r);
-        return false;
-    }
-}
+    public void doFilter(Request request, Response response, FilterChain filterChain) {
+        String reqStr = request.getReqStr();
+        String replace = reqStr.replace("mashibing.com", "https://www.mashibing.com");
+        replace+="------URLFilter";
+        request.setReqStr(replace);
 
-class J996Filter implements Filter {
-    @Override
-    public boolean doFilter(Msg msg) {
-        String r = msg.getMsg();
-        r = r.replace("996", "955");
-        msg.setMsg(r);
-        return true;
-    }
-}
+        filterChain.doFilter(request, response);
 
-class FaceFilter implements Filter {
-    @Override
-    public boolean doFilter(Msg msg) {
-        String r = msg.getMsg();
-        r = r.replace(":)", "笑脸");
-        msg.setMsg(r);
-        return true;
+        String resStr = response.getResStr();
+        resStr += "--URLFilter()";
+        response.setResStr(resStr);
+
     }
 }
 
 
+class Request {
+    private String reqStr;
 
+    public String getReqStr() {
+        return reqStr;
+    }
 
+    public void setReqStr(String reqStr) {
+        this.reqStr = reqStr;
+    }
+}
+
+class Response {
+    private String resStr;
+
+    public String getResStr() {
+        return resStr;
+    }
+
+    public void setResStr(String resStr) {
+        this.resStr = resStr;
+    }
+}

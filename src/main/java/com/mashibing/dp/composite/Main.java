@@ -61,7 +61,7 @@ public class Main {
     }
 
     static void tree(Node b, int depth) {
-        for(int i=0; i<depth; i++) System.out.print("--");
+        for(int i=0; i<depth; i++) System.out.print("--|");
         b.p();
 
         if(b instanceof BranchNode) {

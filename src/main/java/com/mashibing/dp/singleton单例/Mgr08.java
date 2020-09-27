@@ -1,4 +1,4 @@
-package com.mashibing.dp.singleton;
+package com.mashibing.dp.singleton单例;
 
 /**
  * 不仅可以解决线程同步，还可以防止反序列化。

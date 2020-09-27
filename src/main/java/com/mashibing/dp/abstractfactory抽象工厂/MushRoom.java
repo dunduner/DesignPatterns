@@ -1,4 +1,4 @@
-package com.mashibing.dp.abstractfactory;
+package com.mashibing.dp.abstractfactory抽象工厂;
 
 public class MushRoom extends Food{
     public void printName() {

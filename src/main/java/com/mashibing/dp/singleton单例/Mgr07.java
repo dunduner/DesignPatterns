@@ -1,4 +1,4 @@
-package com.mashibing.dp.singleton;
+package com.mashibing.dp.singleton单例;
 
 /**
  * 静态内部类方式
